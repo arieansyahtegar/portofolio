@@ -452,7 +452,7 @@ const TerminalCLI = {
       });
     }
 
-    this.printOutput("Welcome to Arieansyah's Shell. Type 'help'.", "success");
+    this.printOutput("Welcome to Arieansyah's Shell.\nType 'help' for instructions.", "success");
   },
 
   triggerFlash() {
@@ -523,7 +523,7 @@ const TerminalCLI = {
 
       case 'clear':
         this.history.innerHTML = '';
-        this.printOutput("Welcome to Arieansyah's Shell. Type 'help'.", "success");
+        this.printOutput("Welcome to Arieansyah's Shell.\nType 'help' for instructions.", "success");
         this.triggerFlash();
         break;
 
