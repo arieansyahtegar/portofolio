@@ -1466,3 +1466,8 @@ a { color: inherit; text-decoration: none; }
   animation: pageEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 0.52s;
 }
+
+/* Helper class to disable transitions during load/refresh */
+.no-transition {
+  transition: none !important;
+}

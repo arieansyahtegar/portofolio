@@ -53,6 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
   initKeyboard();
   initSwipe();
   initDiscordCopy();
+
+  setTimeout(() => {
+    const pages = document.getElementById('pages');
+    const ambient = document.getElementById('ambientBg');
+    if (pages) pages.classList.remove('no-transition');
+    if (ambient) ambient.classList.remove('no-transition');
+  }, 150);
 });
 
 // ─── Web Audio API Sound Generator & Synthesizer ───
