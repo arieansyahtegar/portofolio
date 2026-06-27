@@ -439,6 +439,7 @@ const TerminalCLI = {
           this.triggerFlash();
         }
         this.input.value = '';
+        this.input.blur(); // Close mobile virtual keyboard panel
       } else if (e.key.length === 1 || e.key === 'Backspace' || e.key === 'Delete') {
         SoundManager.playType();
       }
@@ -451,7 +452,7 @@ const TerminalCLI = {
       });
     }
 
-    this.printOutput("Welcome to Arieansyah's Shell. Type 'help' for instructions.", "success");
+    this.printOutput("Welcome to Arieansyah's Shell. Type 'help'.", "success");
   },
 
   triggerFlash() {
@@ -507,14 +508,14 @@ const TerminalCLI = {
         const helpText = [
           "Available Commands:",
           "  help       - Show help menu",
-          "  clear      - Clear command history",
-          "  home       - Navigate to Home page",
-          "  skills     - Navigate to Skills page",
-          "  projects   - Navigate to Projects page",
-          "  contact    - Navigate to Contact page",
-          "  about      - Display brief bio",
-          "  matrix     - Run digital decryption code rain",
-          "  beep       - Synthesize audio diagnostic checks"
+          "  clear      - Clear history",
+          "  home       - Go to Home page",
+          "  skills     - Go to Skills page",
+          "  projects   - Go to Projects page",
+          "  contact    - Go to Contact page",
+          "  about      - Display bio",
+          "  matrix     - Run matrix code rain",
+          "  beep       - Run audio diagnostics"
         ].join('\n');
         this.printOutput(helpText);
         SoundManager.playSuccess();
@@ -522,7 +523,7 @@ const TerminalCLI = {
 
       case 'clear':
         this.history.innerHTML = '';
-        this.printOutput("Welcome to Arieansyah's Shell. Type 'help' for instructions.", "success");
+        this.printOutput("Welcome to Arieansyah's Shell. Type 'help'.", "success");
         this.triggerFlash();
         break;
 
@@ -545,7 +546,7 @@ const TerminalCLI = {
           "+----------------------------------------+"
         ].join('\n');
         this.printOutput(skillsTable, 'success');
-        this.printOutput("Loading Skills panel viewport...", "success");
+        this.printOutput("Loading Skills panel...", "success");
         goToPage('skills');
         break;
 
@@ -557,15 +558,15 @@ const TerminalCLI = {
           "| 1. Sikubi   [Vue, PHP, CSS]   - Done   |",
           "| 2. 71Market [Blade, PHP, CSS] - Done   |",
           "| 3. wwmboost [HTML, CSS, JS]   - Active |",
-          "+----------------------------------------+"
+          "+----------------------------------------+",
         ].join('\n');
         this.printOutput(projectsTable, 'success');
-        this.printOutput("Loading Projects panel viewport...", "success");
+        this.printOutput("Loading Projects panel...", "success");
         goToPage('projects');
         break;
 
       case 'matrix':
-        this.printOutput("Initializing system decryption sweep...", "success");
+        this.printOutput("Initializing decryption...", "success");
         SoundManager.playTone(440, 'sine', 0.2, 0.05, 880);
         
         const mLine = document.createElement('div');
@@ -607,7 +608,7 @@ const TerminalCLI = {
           frame++;
           if (frame >= maxFrames) {
             clearInterval(interval);
-            mPre.textContent += "\n[ DECRYPTION COMPLETE ]\nSystem status: SECURE. 0 vulnerabilities found.";
+            mPre.textContent += "\n[ DECRYPTION COMPLETE ]\nSystem status: SECURE.";
             this.input.disabled = false;
             this.input.focus();
             this.scrollToBottom();
