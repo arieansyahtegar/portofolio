@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Arieansyah Tegar — Informatics Engineering Student. Building digital solutions with code.">
+  <title>Arieansyah Tegar — Portfolio</title>
+
+  <!-- Fonts & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Ambient Background -->
+  <div class="ambient-bg" id="ambientBg">
+    <div class="ambient-orb ambient-orb--1"></div>
+    <div class="ambient-orb ambient-orb--2"></div>
+    <div class="ambient-orb ambient-orb--3"></div>
+  </div>
+  <div class="grid-overlay"></div>
+  <canvas class="bg-canvas" id="bgCanvas"></canvas>
+
+  <!-- Cursor Glow -->
+  <div class="cursor-glow"></div>
+
+  <!-- Floating Sound Control -->
+  <div class="sound-control" id="soundControl" title="Toggle Sound">
+    <button class="sound-btn" id="soundBtn">
+      <i class="fa-solid fa-volume-high"></i>
+    </button>
+    <span class="sound-status">sfx: on</span>
+  </div>
+
+  <!-- ══════ DIRECTIONAL HINTS ══════ -->
+  <div class="dir-hints" id="dirHints">
+    <button class="dir-hint dir-hint--up" id="hintUp" onclick="navigateTo('up')">
+      <i class="fa-solid fa-chevron-up"></i>
+      <span class="dir-hint__label" id="hintUpLabel">projects</span>
+    </button>
+    <button class="dir-hint dir-hint--down" id="hintDown" onclick="navigateTo('down')">
+      <span class="dir-hint__label" id="hintDownLabel">home</span>
+      <i class="fa-solid fa-chevron-down"></i>
+    </button>
+    <button class="dir-hint dir-hint--left" id="hintLeft" onclick="navigateTo('left')">
+      <i class="fa-solid fa-chevron-left"></i>
+      <span class="dir-hint__label" id="hintLeftLabel">skills</span>
+    </button>
+    <button class="dir-hint dir-hint--right" id="hintRight" onclick="navigateTo('right')">
+      <span class="dir-hint__label" id="hintRightLabel">contact</span>
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+
+  <!-- ══════ MOBILE NAVIGATION BAR (Mobile Only) ══════ -->
+  <nav class="mobile-nav" id="mobileNav">
+    <button class="mobile-nav__item active" data-page="home">
+      <i class="fa-solid fa-house"></i>
+      <span class="mobile-nav__label">home</span>
+    </button>
+    <button class="mobile-nav__item" data-page="skills">
+      <i class="fa-solid fa-code"></i>
+      <span class="mobile-nav__label">skills</span>
+    </button>
+    <button class="mobile-nav__item" data-page="projects">
+      <i class="fa-solid fa-folder-open"></i>
+      <span class="mobile-nav__label">projects</span>
+    </button>
+    <button class="mobile-nav__item" data-page="contact">
+      <i class="fa-solid fa-envelope"></i>
+      <span class="mobile-nav__label">contact</span>
+    </button>
+  </nav>
+
+  <!-- ══════ PAGES VIEWPORT ══════ -->
+  <div class="viewport" id="viewport">
+    <div class="pages" id="pages">
+
+      <!-- ═══ HOME (center: col 1, row 1) ═══ -->
+      <div class="page page--active" id="page-home">
+        <div class="page__inner home">
+
+          <div class="home__status">
+            <span class="home__status-dot"></span>
+            status: available
+          </div>
+
+          <h1 class="home__name">
+            Arieansyah<br><span class="home__name-accent">Tegar</span>
+          </h1>
+
+          <div class="home__role">
+            <div class="home__role-line"></div>
+            <span>Informatics Engineering Student</span>
+          </div>
+
+          <blockquote class="home__quote">
+            <span class="home__quote-label">stdout</span>
+            <span class="home__quote-text" id="typingTarget" data-text="Code with Logic, Design With Empathy."></span><span class="home__cursor"></span>
+          </blockquote>
+
+          <div class="terminal-shell">
+            <div class="terminal-shell__history" id="shellHistory"></div>
+            <div class="terminal-shell__prompt">
+              <span class="terminal-shell__user">visitor@arieansyah</span><span class="terminal-shell__sep">:</span><span class="terminal-shell__dir">~</span><span class="terminal-shell__char">$</span>
+              <input type="text" class="terminal-shell__input" id="shellInput" placeholder="type 'help'..." autocomplete="off" spellcheck="false">
+            </div>
+          </div>
+
+          <div class="home__actions">
+            <button class="btn btn--primary" onclick="goToPage('projects')">
+              ./view_projects
+              <i class="fa-solid fa-arrow-up"></i>
+            </button>
+            <button class="btn btn--ghost" onclick="goToPage('contact')">
+              ping me
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ═══ SKILLS (left of home: col 0, row 1) ═══ -->
+      <div class="page" id="page-skills">
+        <div class="page__inner page__scroll">
+
+          <div class="section-head">
+            <span class="section-num">// 01 — tech_stack</span>
+            <h2 class="section-title">Languages & Tools</h2>
+            <p class="section-desc">Core technologies in my development workflow.</p>
+          </div>
+
+          <div class="skills-grid">
+
+            <div class="skill-card" style="--skill-color: #e34f26;">
+              <div class="skill-card__icon"><i class="fa-brands fa-html5"></i></div>
+              <div class="skill-card__body">
+                <h3 class="skill-card__name">HTML</h3>
+                <span class="skill-card__type">markup</span>
+              </div>
+              <div class="skill-card__dots" data-rating="4.5">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              </div>
+            </div>
+
+            <div class="skill-card" style="--skill-color: #2965f1;">
+              <div class="skill-card__icon"><i class="fa-brands fa-css3-alt"></i></div>
+              <div class="skill-card__body">
+                <h3 class="skill-card__name">CSS</h3>
+                <span class="skill-card__type">styling</span>
+              </div>
+              <div class="skill-card__dots" data-rating="4">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              </div>
+            </div>
+
+            <div class="skill-card" style="--skill-color: #777bb4;">
+              <div class="skill-card__icon"><i class="fa-brands fa-php"></i></div>
+              <div class="skill-card__body">
+                <h3 class="skill-card__name">PHP</h3>
+                <span class="skill-card__type">backend</span>
+              </div>
+              <div class="skill-card__dots" data-rating="3.5">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              </div>
+            </div>
+
+            <div class="skill-card" style="--skill-color: #00758f;">
+              <div class="skill-card__icon"><i class="fa-solid fa-database"></i></div>
+              <div class="skill-card__body">
+                <h3 class="skill-card__name">MySQL</h3>
+                <span class="skill-card__type">database</span>
+              </div>
+              <div class="skill-card__dots" data-rating="3">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              </div>
+            </div>
+
+            <div class="skill-card" style="--skill-color: #f0db4f;">
+              <div class="skill-card__icon"><i class="fa-brands fa-js"></i></div>
+              <div class="skill-card__body">
+                <h3 class="skill-card__name">JavaScript</h3>
+                <span class="skill-card__type">logic</span>
+              </div>
+              <div class="skill-card__dots" data-rating="4">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ PROJECTS (above home: col 1, row 0) ═══ -->
+      <div class="page" id="page-projects">
+        <div class="page__inner page__scroll">
+
+          <div class="section-head">
+            <span class="section-num">// 02 — repositories</span>
+            <h2 class="section-title">Project Archive</h2>
+            <p class="section-desc">Things I've shipped and pushed to production.</p>
+          </div>
+
+          <div class="projects-list">
+
+            <!-- PROJECT 1: Sikubi -->
+            <article class="proj-card-v4" style="--card-accent: #22d3ee; --card-accent-rgb: 34, 211, 238;">
+              <div class="proj-card-v4__glow"></div>
+              
+              <div class="proj-card-v4__left">
+                <div class="proj-card-v4__title-block">
+                  <h3 class="proj-card-v4__name">Sikubi</h3>
+                  <div class="status-indicator status--completed">
+                    <span class="status-indicator__dot"></span>
+                    <span class="status-indicator__label">Completed</span>
+                  </div>
+                </div>
+                <div class="proj-card-v4__tech">
+                  <span class="tech-tag tag--vue">Vue</span>
+                  <span class="tech-tag tag--php">PHP</span>
+                  <span class="tech-tag tag--css">CSS</span>
+                </div>
+              </div>
+              
+              <div class="proj-card-v4__right">
+                <p class="proj-card-v4__desc">Corporate financial management platform built for tracking, managing, and reporting company accounts.</p>
+                <div class="proj-card-v4__footer">
+                  <a href="https://github.com/arieansyahtegar/sikubi.git" target="_blank" rel="noopener" class="proj-card-v4__link">
+                    <span>git clone source</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- PROJECT 2: 71Market -->
+            <article class="proj-card-v4" style="--card-accent: #34d399; --card-accent-rgb: 52, 211, 153;">
+              <div class="proj-card-v4__glow"></div>
+              
+              <div class="proj-card-v4__left">
+                <div class="proj-card-v4__title-block">
+                  <h3 class="proj-card-v4__name">71Market</h3>
+                  <div class="status-indicator status--completed">
+                    <span class="status-indicator__dot"></span>
+                    <span class="status-indicator__label">Completed</span>
+                  </div>
+                </div>
+                <div class="proj-card-v4__tech">
+                  <span class="tech-tag tag--blade">Blade</span>
+                  <span class="tech-tag tag--php">PHP</span>
+                  <span class="tech-tag tag--css">CSS</span>
+                </div>
+              </div>
+              
+              <div class="proj-card-v4__right">
+                <p class="proj-card-v4__desc">Online game top-up marketplace platform built for fast, secure game credits and in-game item transactions.</p>
+                <div class="proj-card-v4__footer">
+                  <a href="https://github.com/arieansyahtegar/71-Market.git" target="_blank" rel="noopener" class="proj-card-v4__link">
+                    <span>git clone source</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- PROJECT 3: wwmboost -->
+            <article class="proj-card-v4" style="--card-accent: #a78bfa; --card-accent-rgb: 167, 139, 250;">
+              <div class="proj-card-v4__glow"></div>
+              
+              <div class="proj-card-v4__left">
+                <div class="proj-card-v4__title-block">
+                  <h3 class="proj-card-v4__name">wwmboost</h3>
+                  <div class="status-indicator status--active">
+                    <span class="status-indicator__dot"></span>
+                    <span class="status-indicator__label">Active</span>
+                  </div>
+                </div>
+                <div class="proj-card-v4__tech">
+                  <span class="tech-tag tag--html">HTML</span>
+                  <span class="tech-tag tag--css">CSS</span>
+                  <span class="tech-tag tag--js">JavaScript</span>
+                </div>
+              </div>
+              
+              <div class="proj-card-v4__right">
+                <p class="proj-card-v4__desc">Professional boosting and account leveling service dashboard with real-time order tracking.</p>
+                <div class="proj-card-v4__footer">
+                  <a href="https://github.com/arieansyahtegar/wwmjoki.git" target="_blank" rel="noopener" class="proj-card-v4__link">
+                    <span>git clone source</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ CONTACT (right of home: col 2, row 1) ═══ -->
+      <div class="page" id="page-contact">
+        <div class="page__inner">
+
+          <div class="section-head section-head--center">
+            <span class="section-num">// 03 — connect</span>
+            <h2 class="section-title">Open Channels</h2>
+            <p class="section-desc section-desc--center">Got an idea, a bug to report, or just want to talk tech?</p>
+          </div>
+
+          <div class="contact-stack">
+
+            <a href="https://www.instagram.com/arieansyahtegar/" target="_blank" rel="noopener" class="contact-item">
+              <div class="contact-item__icon" style="--ic: #e1306c;"><i class="fa-brands fa-instagram"></i></div>
+              <div class="contact-item__info">
+                <div class="contact-item__platform">Instagram</div>
+                <div class="contact-item__user">@arieansyahtegar</div>
+              </div>
+              <i class="fa-solid fa-arrow-up-right contact-item__arrow"></i>
+            </a>
+
+            <div class="contact-item" id="discordRow">
+              <div class="contact-item__icon" style="--ic: #5865f2;"><i class="fa-brands fa-discord"></i></div>
+              <div class="contact-item__info">
+                <div class="contact-item__platform">Discord</div>
+                <div class="contact-item__user">kiraa00652_63496</div>
+              </div>
+              <span class="contact-item__copy" id="copyDiscord" title="Copy">
+                <i class="fa-regular fa-copy"></i>
+              </span>
+            </div>
+
+            <a href="https://github.com/arieansyahtegar" target="_blank" rel="noopener" class="contact-item">
+              <div class="contact-item__icon" style="--ic: #e2e8f0;"><i class="fa-brands fa-github"></i></div>
+              <div class="contact-item__info">
+                <div class="contact-item__platform">GitHub</div>
+                <div class="contact-item__user">arieansyahtegar</div>
+              </div>
+              <i class="fa-solid fa-arrow-up-right contact-item__arrow"></i>
+            </a>
+
+          </div>
+
+          <p class="contact-footer">&lt;/&gt; built by <span>Arieansyah Tegar</span> — all systems operational</p>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="js/main.js"></script>
+</body>
+</html>
